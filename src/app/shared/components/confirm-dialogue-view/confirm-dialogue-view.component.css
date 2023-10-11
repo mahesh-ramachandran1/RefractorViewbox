@@ -1,0 +1,21 @@
+.uploadcontrol{background-color:#fff;min-height:50px;max-height:305px;border:1px solid #ccc5c5;webkit-box-shadow:1px 1px 1px 1px #f7f7f7 inset;-ms-box-shadow:1px 1px 1px 1px #f7f7f7 inset;-moz-box-shadow:1px 1px 1px 1px #f7f7f7 inset}
+.fileuploadicon{height:20px;width:20px}
+.fileuploadiconbox{margin:0;border:none}
+#uploadIcon{text-transform:none;padding:15px 15px 0}
+#uploadIcon .fa-upload{font-size:65px;cursor:pointer}
+.dragDrop,.maxSize{font-weight:400;font-size:16px}
+label{text-transform:none}
+#support .padding{padding-right:0;padding-bottom:4px}
+#labelAlignment{position:relative;top:10px}
+#navBarFixes{position:fixed;width:100%;z-index:99999}
+#fileupload #uploadIcon p:first-child{font-weight:400;font-size:20px}
+#fileupload #uploadIcon p:nth-child(2),#fileupload #uploadIcon p:nth-child(3){font-weight:400;font-size:20px}
+.popover.right{color:#fff;background-color:rgba(0,0,0,0.7);z-index:99999}
+.right .popover-inner{background:none;width:275px}
+.support-list{word-break:break-all}
+.support-tooltip{padding-right:5px}
+.support-validation{font-size:15px;font-weight:400}
+#support-desk-footer{margin-top:0}
+
+/*delay translation key css fix*/
+/*.translate-cloak {display: none !important;}*/

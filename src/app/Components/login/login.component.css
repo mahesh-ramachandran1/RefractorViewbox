@@ -1,0 +1,42 @@
+.login-screen{height:90px;/*125px;*/}
+#checkbox{display:none}
+.checkboxLabel,.checkboxLabel label{/*color:#3fb618;*/cursor:pointer}
+.checkboxLabel label {font-family: Calibri,Arial,sans-serif}
+.fa-eye-slash:before,.fa-eye:before{padding-right:5px}
+.inputboxsize{width:100%}
+.strengthmeter{margin-top:10px;position:relative}
+.colormeter{height:20px;transition:width 500ms,background 500ms;-o-transition:width 500ms,background 500ms;-moz-transition:width 500ms,background 500ms;-webkit-transition:width 500ms,background 500ms;z-index:1}
+.textmeter{position:absolute;text-align:left;background:transparent;z-index:2;padding-left:10px;color:#fff}
+.passwordstrengthinputbox{z-index:3;width:100%;background:transparent;position:absolute}
+.tooltip-inner{background-color:#fff!important;color:#000;border:1.5px solid #ccc!important;max-width:260px!important}
+.toolTipText{text-align:left;margin-left:5px;margin-top:5px;color:#e46b6b;margin-right:5px}
+.large-font{font-size:medium}
+.font-medium{font-size:small}
+.toolTipBox{text-align:left}
+.toolTipField,.glyphicon{text-align:center}
+.toolTipField{width:18px;height:18px;margin:auto;margin-right:5px;display:inline-block;vertical-align:middle;border:1px solid gray;border-radius:2px;background-color:#fff}
+/*#child-container .inner-container{padding-bottom: 6px;}*/
+.powered-by{padding-top:10%;}
+.powered-by img{height:40px;}
+.login-dropdown.dropdown-menu{min-width: 220px;}
+.login-dropdown.dropdown-menu li a{padding: 8px;}
+input[type="password" i] {
+    text-security: disc;
+    -webkit-text-security: disc;
+}
+.languageUrl{display:inline-block}
+@media only screen and (max-width: 992px) {
+    .width100 {
+        width: 100%;
+    }
+    .posAbs {
+        position: absolute;
+        bottom: 11%;
+        right: -10px;
+    }
+
+}
+
+
+/*delay translation key css fix*/
+/*.translate-cloak {display: none !important;}*/
