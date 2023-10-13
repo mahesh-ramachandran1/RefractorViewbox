@@ -19,13 +19,13 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle clickable navbar-menu" data-toggle="dropdown">
-                        
+                        {{model.selectedLanguage}}
                         <span class="caret" ng-if="model.languages.length > 0"></span>
                     </a>
 
                     <ul id="login-dp" class="dropdown-menu login-dropdown">
                         <li class="clickable" ng-repeat="lang in model.languages">
-                            <a ng-click="model.setLanguage(lang.value)"></a>
+                            <a ng-click="model.setLanguage(lang.value)">{{ lang.title }}</a>
                         </li>
                     </ul>
                 <li>
@@ -36,7 +36,7 @@
 <div class="clearfix"></div>
 <div class="container-fluid" id="child-container" ng-hide="model.blockFirefox">
     <div class="col-lg-12 col-md-12 text-center inner-container">
-        <h1 class="form-head" ng-if="!model.logout"><span translate>WelcomeToTheViewboxOf</span> </h1>
+        <h1 class="form-head" ng-if="!model.logout"><span translate>WelcomeToTheViewboxOf</span> {{model.projectName}}</h1>
         <h1 class="form-head" ng-if="model.logout" translate>YouWereAutomaticallyLoggedOut</h1>
     </div>
     <div class="row message" ng-show="model.clientLogo!==undefined" ng-if="model.clientLogo!==null">
@@ -64,7 +64,7 @@
                                class="form-control"
                                ng-model="model.userName"
                                ng-keydown="model.onEnter($event)"
-                               value=""
+                               value="{{model.userName}}"
                                focus="true"
                                tabindex="1" placeholder="{{'EnterUsername' }}"
                                ng-class="model.userNameInvalid == true?'input-data-error':''"
@@ -80,6 +80,7 @@
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="width-338">
+                        
                         <app-passaword-text-box label="Password"
                                              type="password"
                                              id="password"
@@ -97,11 +98,23 @@
                                              validationerror="model.invalidNewPassword"
                                              requirfielderror="model.requireNewPassword"
                                              allow-dictionary-characters="model.dictionaryCharater"
-                                             key-up-event="model.passwordValidation()"></app-passaword-text-box>
+                                             key-up-event="model.passwordValidation()" >
+                                            </app-passaword-text-box>
+                                             <input type="password"
+                                             name="Password"
+                                             id="userName"
+                                             class="form-control"
+                                             ng-model="model.userName"
+                                             ng-keydown="model.onEnter($event)"
+                                             value="{{model.userName}}"
+                                             focus="true"
+                                             tabindex="1" placeholder="{{'EnterPassword' }}"
+                                             ng-class="model.userNameInvalid == true?'input-data-error':''"
+                                             ng-change="model.removeError()"
+                                             autocomplete="on"
+                                             ng-disabled="model.oktaLogin=='true'" />
 
 
-
-                                             
                         <div class="top-bottom-padding-sm col-md-6 warning-message">
                             <span class="text-warning bottom-padding-caps-on" ng-show="model.isCapsLockOn">Caps lock is on!</span>
 
@@ -121,12 +134,12 @@
             </div>
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center login-btn">
-                    <input type="submit" name="doLogin" value="" class="btn btn-medium btnMdWidth" ng-show="model.loading" tabindex="3" click="model.login()" style="margin-bottom: 8px;" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''">
-                    <a class="btn btn-medium btnMdWidth" id="login-btn-selenium" ng-show="!model.loading" style="margin-bottom: 8px;">
+                    <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" ng-show="model.loading" tabindex="3" click="model.login()" style="margin-bottom: 8px;" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''">
+                    <!-- <a class="btn btn-medium btnMdWidth" id="login-btn-selenium" ng-show="!model.loading" style="margin-bottom: 8px;">
                         <span>
                             <i class="fa fa-circle-o-notch fa-spin"></i>
                         </span>
-                    </a>
+                    </a> -->
                     <span ng-if="model.showADLogin">
                         <br />
                     </span>
@@ -160,7 +173,7 @@
 </div>
 <div class="container-fluid" id="child-container" ng-show="model.blockFirefox">
     <div class="col-lg-12 col-md-12 text-center inner-container">
-        <h1 class="form-head"><span translate>WelcomeToTheViewboxOf</span> </h1>
+        <h1 class="form-head"><span translate>WelcomeToTheViewboxOf</span> {{model.projectName}}</h1>
     </div>
     <div class="row message" ng-show="model.clientLogo!==undefined && model.clientLogo!==null">
         <div class="text-center col-md-6 col-md-offset-3 top-bottom-padding"><img class="login-screen" /></div>
@@ -172,5 +185,5 @@
     </div>
 </div>
 <app-confirm-dialogue-view></app-confirm-dialogue-view>
-<!--<script type="module" src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>-->
+
 

@@ -17,7 +17,7 @@ label{text-transform:none}
 .support-validation{font-size:15px;font-weight:400}
 #support-desk-footer{margin-top:0}
 .passwordstrengthinputbox{z-index:3;width:100%;background:transparent;position:absolute}
-#password-textbox{color: aqua; border-color: black;}
+#password-textbox{color: #3a486b; }
 /*delay translation key css fix*/
 /*.translate-cloak {display: none !important;}*/
 
