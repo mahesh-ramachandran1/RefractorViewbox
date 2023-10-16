@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" role="navigation" id="navBarFixes">
     <div class="container-fluid header-padding if-blur-content">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header float-start ms-auto">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -14,65 +14,78 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse float-end" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle clickable navbar-menu" data-toggle="dropdown">
-                        {{model.selectedLanguage}}
-                        <span class="caret" ng-if="model.languages.length > 0"></span>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{selectedLanguage}}
+                        <span class="caret" *ngIf="languages.length > 0"></span>
                     </a>
-
-                    <ul id="login-dp" class="dropdown-menu login-dropdown">
-                        <li class="clickable" ng-repeat="lang in model.languages">
-                            <a ng-click="model.setLanguage(lang.value)">{{ lang.title }}</a>
-                        </li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li *ngFor="let language of languages" (click)="selectOption(language)">
+                            {{language}}
+                          </li>                 
                     </ul>
-                <li>
+                  </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="clearfix"></div>
-<div class="container-fluid" id="child-container" ng-hide="model.blockFirefox">
+<div class="container-fluid" id="child-container" *ngIf="!blockFirefox">
+    <br /><br /><br /><br />
     <div class="col-lg-12 col-md-12 text-center inner-container">
-        <h1 class="form-head" ng-if="!model.logout"><span translate>WelcomeToTheViewboxOf</span> {{model.projectName}}</h1>
-        <h1 class="form-head" ng-if="model.logout" translate>YouWereAutomaticallyLoggedOut</h1>
+        <h1 class="form-head" *ngIf="!logout" translate>Welcome To The Viewbox Of AvenData</h1>
+        <h1 class="form-head" *ngIf="logout" translate>YouWereAutomaticallyLoggedOut</h1>
     </div>
-    <div class="row message" ng-show="model.clientLogo!==undefined" ng-if="model.clientLogo!==null">
-        <div class="text-center col-md-6 col-md-offset-3 top-bottom-padding"><img class="login-screen"  /></div>
-    </div>
-    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 if-blur-content">
-        <div class="message top-bottom-padding" ng-if="model.logout">
-            <h4 class="text-center" translate>TheViewboxHasDetectedAnInactivityAndAutomaticallyLogsYouOutToAdjustTheIntervalYouMustGoToViewboxSettingsOrAskTheAdministratorYouWillAutomaticallyBeRedirectedToTheLoginPage</h4>
+
+    <div class="row message" *ngIf="clientLogo !== undefined && clientLogo !== null">
+        <div class="text-center col-md-6 col-md-offset-3 top-bottom-padding">
+            <img class="login-screen" [(ngModel)]="clientLogo" name="clientLogo" />
         </div>
-        <form method="post" name="login-page" id="login-page-form" class="form-horizontal" ng-submit="model.login()">
+    </div>
+
+    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 if-blur-content">
+        <div class="message top-bottom-padding" *ngIf="logout">
+            <h4 class="text-center" translate>
+                TheViewboxHasDetectedAnInactivityAndAutomaticallyLogsYouOutToAdjustTheIntervalYouMustGoToViewboxSettingsOrAskTheAdministratorYouWillAutomaticallyBeRedirectedToTheLoginPage
+            </h4>
+        </div>
+
+        <form method="post" name="login-page" id="login-page-form" class="form-horizontal" (submit)="login()">
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="width-338">
-                        <div class="text-warning text-center" ng-if="model.textWarning" translate>CheckYourUsernameAndPassword</div>
-                        <div class="text-warning text-center" ng-if="model.textWarning" translate>IfYouStillCantLogInContactYourSystemAdministrator</div>
-                        <div class="text-warning text-center" ng-if="model.userNameInvalid" translate>PleaseEnterYourUsername</div>
-                        <div class="text-warning text-center" ng-if="model.passwordInvalid" translate>PleaseEnterYourPassword</div>
-                        <div class="text-warning text-center" ng-if="model.authorizedAccess" translate>TheAuthorizationForViewsAndTablesHaveBeenRemovedContactAdministratorForAccess</div>
+                        <ng-container *ngIf="showTextWarning">
+                            <div class="text-warning text-center" translate>CheckYourUsernameAndPassword</div>
+                            <div class="text-warning text-center" translate>IfYouStillCantLogInContactYourSystemAdministrator</div>
+                        </ng-container>
+                        <div class="text-warning text-center" *ngIf="showUserNameInvalid" translate>PleaseEnterYourUsername</div>
+                        <div class="text-warning text-center" *ngIf="showPasswordInvalid" translate>PleaseEnterYourPassword</div>
+                        <div class="text-warning text-center" *ngIf="showAuthorizedAccess" translate>TheAuthorizationForViewsAndTablesHaveBeenRemovedContactAdministratorForAccess</div>
 
-                        <div class="text-warning text-center" ng-show="model.showForceLogoutMessage" translate></div>
+                        <div class="text-warning text-center" *ngIf="showForceLogoutMessage" translate>{{forceLogoutMessage}}</div>
                         <label translate>Username</label>
                         <input type="text"
                                name="username"
                                id="userName"
                                class="form-control"
-                               ng-model="model.userName"
-                               ng-keydown="model.onEnter($event)"
-                               value="{{model.userName}}"
+                               [(ngModel)]="userName"
+                               (keydown)="onEnter($event)"
+                               [value]="userName"
                                focus="true"
                                tabindex="1" placeholder="{{'EnterUsername' }}"
-                               ng-class="model.userNameInvalid == true?'input-data-error':''"
-                               ng-change="model.removeError()"
+                               [ngClass]="{'input-data-error': userNameInvalid}"
+                               (ngModelChange)="removeError()"
                                autocomplete="on"
-                               ng-disabled="model.oktaLogin=='true'" />
+                               [disabled]="oktaLogin=='true'" />
                         <div class="top-bottom-padding-sm text-right text-link">
-                            <a class="btn-link clickable" ng-link="['UsernameReminderPage']" tabindex="4" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''"><span translate>ForgotYourUsername</span></a>
+                            <a class="btn-link clickable" [routerLink]="['UsernameReminderPage']" tabindex="4" [ngClass]="{'oktaDisable': oktaLogin=='true'}">
+                                <span translate>ForgotYourUsername</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -80,110 +93,67 @@
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="width-338">
-                        
-                        <app-passaword-text-box label="Password"
-                                             type="password"
-                                             id="password"
-                                             name="password"
-                                             bind="model.password"
-                                             placeholder="EnterPassword"
-                                             tab-index="2"
-                                             validate="model.passwordInvalid"
-                                             showmeter="false"
-                                             showtooltip="false"
-                                             totalstrength="model.totalStrength"
-                                             strengthmetercount="model.strengthMeterCount"
-                                             displaymeter="model.displaymeter"
-                                             enter-login="model.enterLogin(event)"
-                                             validationerror="model.invalidNewPassword"
-                                             requirfielderror="model.requireNewPassword"
-                                             allow-dictionary-characters="model.dictionaryCharater"
-                                             key-up-event="model.passwordValidation()" >
-                                            </app-passaword-text-box>
-                                             <input type="password"
-                                             name="Password"
-                                             id="userName"
-                                             class="form-control"
-                                             ng-model="model.userName"
-                                             ng-keydown="model.onEnter($event)"
-                                             value="{{model.userName}}"
-                                             focus="true"
-                                             tabindex="1" placeholder="{{'EnterPassword' }}"
-                                             ng-class="model.userNameInvalid == true?'input-data-error':''"
-                                             ng-change="model.removeError()"
-                                             autocomplete="on"
-                                             ng-disabled="model.oktaLogin=='true'" />
-
-
+                        <app-passaword-text-box></app-passaword-text-box>
                         <div class="top-bottom-padding-sm col-md-6 warning-message">
-                            <span class="text-warning bottom-padding-caps-on" ng-show="model.isCapsLockOn">Caps lock is on!</span>
-
+                            <span class="text-warning bottom-padding-caps-on" *ngIf="isCapsLockOn">Caps lock is on!</span>
                             <div class="form-check pull-left">
-                                <label class="form-check-label" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''">
-                                    <input type="checkbox" class="form-check-input" ng-click="model.savePassword()" ng-model="model.remember">
+                                <label class="form-check-label" [ngClass]="{'oktaDisable': oktaLogin=='true'}">
+                                    <input type="checkbox" class="form-check-input" (click)="savePassword()" [(ngModel)]="remember" name="remember">
                                     <span id="remeberMe" translate>RememberMe</span>
                                 </label>
                             </div>
                         </div>
-
                         <div class="top-bottom-padding-sm text-right text-link pull-right">
-                            <a class="btn-link clickable" ng-link="['PasswordResetPage']" tabindex="5" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''"><span translate>ForgotYourPassword</span></a>
+                            <a class="btn-link clickable" [routerLink]="['PasswordResetPage']" tabindex="5" [ngClass]="{'oktaDisable': oktaLogin=='true'}">
+                                <span translate>ForgotYourPassword</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center login-btn">
-                    <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" ng-show="model.loading" tabindex="3" click="model.login()" style="margin-bottom: 8px;" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''">
-                    <!-- <a class="btn btn-medium btnMdWidth" id="login-btn-selenium" ng-show="!model.loading" style="margin-bottom: 8px;">
-                        <span>
-                            <i class="fa fa-circle-o-notch fa-spin"></i>
-                        </span>
-                    </a> -->
-                    <span ng-if="model.showADLogin">
-                        <br />
-                    </span>
-                    <span ng-if="model.showADLogin" class="text-center" translate>Or</span>
+                    <!-- <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" *ngIf="loading" tabindex="3" (click)="login()" style="margin-bottom: 8px;" [ngClass]="{'oktaDisable': oktaLogin=='true'}" /> -->
+
+                    <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" (click)="login" />
                     <br />
-                    <button type="button"
-                            ng-if="model.showADLogin"
-                            class="btn btn-medium btnMdWidth btn-success"
-                            style="margin-top: 8px; margin-right: 4px;"
-                            ng-class="model.oktaLogin=='true' ? 'oktaDisable':''"
-                            ng-click="model.enableAzureADLogin ? model.MSALPopup() : null"
-                            ng-link="model.enableAzureADLogin ? ['LoginPage'] : ['ActiveDirectoryLog']">
+                    <span *ngIf="showADLogin"></span>
+                    <span *ngIf="showADLogin" class="text-center" translate>Or</span>
+                    <br />
+                    <button type="button" *ngIf="showADLogin" class="btn btn-medium btnMdWidth btn-success" style="margin-top: 8px; margin-right: 4px;" [ngClass]="{'oktaDisable': oktaLogin=='true'}" (click)="enableAzureADLogin ? MSALPopup() : null" [routerLink]="enableAzureADLogin ? ['LoginPage'] : ['ActiveDirectoryLog']">
                         <span translate>ActiveDirectoryLogin</span>
                     </button>
-                    <span ng-if="model.jsonLogin">
-                        <br />
-                        <br />
-                    </span>
-                    <span ng-if="model.jsonLogin" class="text-center" translate>Or</span>
-                    <span ng-if="model.jsonLogin">
-                        <br />
-                    </span>
-                    <button ng-if="model.jsonLogin" ng-click="model.JsonOktaLogin()" class="btn btn-medium btnMdWidth btn-success" style="margin-top: 8px;margin-right:4px;">
+                    <span *ngIf="jsonLogin"><br /><br /></span>
+                    <span *ngIf="jsonLogin" class="text-center" translate>Or</span>
+                    <span *ngIf="jsonLogin"><br /></span>
+                    <button *ngIf="jsonLogin" (click)="JsonOktaLogin()" class="btn btn-medium btnMdWidth btn-success" style="margin-top: 8px;margin-right:4px;">
                         <span translate>JsonTokenLogin</span>
                     </button>
-
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="container-fluid" id="child-container" ng-show="model.blockFirefox">
+
+<div class="container-fluid" id="child-container" *ngIf="blockFirefox">
     <div class="col-lg-12 col-md-12 text-center inner-container">
-        <h1 class="form-head"><span translate>WelcomeToTheViewboxOf</span> {{model.projectName}}</h1>
+        <h1 class="form-head" *ngIf="notdefine">
+            <span translate>WelcomeToTheViewboxOf</span> {{ projectName }}
+        </h1>
     </div>
-    <div class="row message" ng-show="model.clientLogo!==undefined && model.clientLogo!==null">
-        <div class="text-center col-md-6 col-md-offset-3 top-bottom-padding"><img class="login-screen" /></div>
+    <div class="row message" *ngIf="clientLogo !== undefined && clientLogo !== null">
+        <div class="text-center col-md-6 col-md-offset-3 top-bottom-padding">
+            <img class="login-screen" [(ngModel)]="clientLogo" name="clientLogo" />
+        </div>
     </div>
     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 if-blur-content">
         <div class="message top-bottom-padding">
-            <h4 class="text-center" translate>TheBrowserHasNoUsageReleasePleaseUseADifferentBrowserToLogInToViewboxIfYouHaveAnyQusetionsPleaseContactTheCustomerSupport</h4>
+            <h4 class="text-center" *ngIf="notdefine" translate>
+                TheBrowserHasNoUsageReleasePleaseUseADifferentBrowserToLogInToViewboxIfYouHaveAnyQusetionsPleaseContactTheCustomerSupport
+            </h4>
         </div>
     </div>
 </div>
-<app-confirm-dialogue-view></app-confirm-dialogue-view>
 
+<app-confirm-dialogue-view></app-confirm-dialogue-view>
 

@@ -1,78 +1,66 @@
 <div class="textbox" id="password-textbox">
+
+
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
-            <input type="checkbox" id="password-checkbox" class="form-check-input" ng-model="model.passwordCheck" ng-click="model.hideShowPassword()" />
+            <input type="checkbox" id="password-checkbox" class="form-check-input" [(ngModel)]="passwordCheck"
+                (click)="hideShowPassword()" />
 
-            <label ng-show="model.label" translate></label><span ng-show="model.star"> Password</span>
+            <label *ngIf="label" translate></label>
+            <span *ngIf="star" style="color:#054876; font-weight: bolder;"> Password</span>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-            <input type="checkbox" id="password-checkbox" class="form-check-input" ng-model="model.passwordCheck" ng-click="model.hideShowPassword()" />
-            <label for="password-checkbox" class="checkboxLabel" ng-if="model.passwordCheck" translate>Hide</label>
-            <label for="password-checkbox" class="checkboxLabel" ng-if="!model.passwordCheck" ng-class="model.oktaLogin=='true' ? 'oktaDisable':''" translate>Show</label>
-        </div>
-    </div>
-    <input type=""
-           name=""
-           id=""
-           class="form-control newpassword"
-           ng-model="model.bind"
-           translate translate-attr-placeholder=
-           data-toggle="tooltip"
-           ng-change="model.countStrength(model.bind,model.showtooltip)"
-           ng-keypress="model.keyUpEvent()"
-           ng-keydown="model.enterLogin({event: $event})"
-           rel="tooltip"
-           data-html="true"
-           data-trigger="focus"
-           tabindex=""
-           no-spaces
-           data-placement="right"
-           data-container="body"
-           ng-cut="$event.preventDefault()"  
-           ng-copy="$event.preventDefault()"  
-           ng-paste="$event.preventDefault()"
-           ng-class="model.validate == true?'input-data-error':''"
-           uib-popover-template="model.dynamicPopover.templateUrl"
-           popover-class="custom-dynamic-popover-class"
-           popover-trigger="'focus'"
-           popover-placement="right"
-           popover-enable="model.showtooltip"
-           autocomplete="on"
-           ng-disabled="model.oktaLogin=='true'"/>
-    <div  ng-if="model.showmeter && !model.validate">
-        <div ng-if="model.displaymeter" class="strengthmeter">
-            <label class="textmeter" ng-bind="model.strengthText" translate></label>
-            <div class="colormeter" ng-style="model.color"></div>
+            <input type="checkbox" id="password-checkbox" class="form-check-input" />
+            <button class="btn-like-text" (click)="hideShowPassword()"> {{ passwordCheck ? 'Hide' : 'Show' }}</button>
         </div>
     </div>
 
-    <script type="text/ng-template" id="myPopoverTemplate.html">
-        <div class="toolTipBox" style="min-width:256px;width:auto;">
-            <p><b class="large-font" translate>ThePasswordMustHave</b></p>
-            <p ng-class="model.strength == true ? 'tooltip-error-false' : 'tooltip-error-true'">
-                <span ng-class="model.strength == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o '"></span>
-                <span translate>Atleast</span><span> {{model.character}} </span><span translate>Characters</span>
-            </p>
-            <p ng-class="model.number == true ? 'tooltip-error-false' : 'tooltip-error-true'" ng-if="model.passwordSettings.IsNumber">
-                <span ng-class="model.number == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
-                <span translate>AtleastOneNumber</span>
-            </p>
-            <p ng-class="model.uppercase == true ? 'tooltip-error-false' : 'tooltip-error-true'" ng-if="model.passwordSettings.IsUppercase">
-                <span ng-class="model.uppercase == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
-                <span translate>AtleastOneUppercase</span>
-            </p>
-            <p ng-class="model.lowercase == true ? 'tooltip-error-false' : 'tooltip-error-true'" ng-if="model.passwordSettings.IsLowercase">
-                <span ng-class="model.lowercase == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
-                <span translate>AtleastOneLowercase</span>
-            </p>
-            <p ng-class="model.special == true ? 'tooltip-error-false' : 'tooltip-error-true'" ng-if="model.passwordSettings.IsSpecialCharacter">
-                <span ng-class="model.special == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
-                <span translate>AtleastOnespecialCharacter</span>
-            </p>
-            <p ng-class="model.trivial == true ? 'tooltip-error-false' : 'tooltip-error-true'" ng-if="model.passwordSettings.IsAllowTrivialPassword">
-                <span ng-class="model.trivial == true ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
-                <span translate>DontUseaTrivialPassword</span>
-            </p>
+    
+
+    <input [type]=" passwordCheck ? 'text' : 'password' " name="pass" id="pass" [(ngModel)]="pass"
+        class="form-control newpassword" [(ngModel)]="bind" [placeholder]="placeholder " data-toggle="tooltip"
+        (ngModelChange)="countStrength(pass)" [tabindex]="tabIndex" no-spaces data-placement="right"
+        data-container="body" (cut)="$event.preventDefault()" (copy)="$event.preventDefault()"
+        (paste)="$event.preventDefault()" [ngClass]="{'input-data-error': validate}" popover-trigger="'focus'"
+        popover-placement="right" autocomplete="on">
+
+    <div *ngIf="showmeter && !validate">
+        <div *ngIf="displaymeter" class="strengthmeter">
+            <label class="textmeter" [innerText]="strengthText "></label>
+            <div class="colormeter" [ngStyle]="color"></div>
         </div>
-    </script>
+    </div>
+
+
+
+    <script type="text/ng-template" id="myPopoverTemplate.html">
+    <div class="toolTipBox" style="min-width:256px;width:auto;">
+        <p><b class="large-font" translate>ThePasswordMustHave</b></p>
+        <p [ngClass]="strength ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="strength ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>Atleast</span><span> {{character}} </span><span translate>Characters</span>
+        </p>
+        <p *ngIf="model.passwordSettings.IsNumber" [ngClass]="number ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="number ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>AtleastOneNumber</span>
+        </p>
+        <p *ngIf="IsUppercase" [ngClass]="uppercase ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="uppercase ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>AtleastOneUppercase</span>
+        </p>
+        <p *ngIf="passwordSettings.IsLowercase" [ngClass]="lowercase ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="lowercase ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>AtleastOneLowercase</span>
+        </p>
+        <p *ngIf="passwordSettings.IsSpecialCharacter" [ngClass]="special ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="special ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>AtleastOnespecialCharacter</span>
+        </p>
+        <p *ngIf="passwordSettings.IsAllowTrivialPassword" [ngClass]="trivial ? 'tooltip-error-false' : 'tooltip-error-true'">
+            <span [ngClass]="trivial ? 'fa fa-check-square-o' : 'fa fa-minus-square-o'"></span>
+            <span translate>DontUseaTrivialPassword</span>
+        </p>
+    </div>
+</script>
+
 </div>

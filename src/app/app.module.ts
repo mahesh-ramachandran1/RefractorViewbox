@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from './services/login.service';
+
 
 
 @NgModule({
@@ -21,9 +23,10 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    
   ],
-  providers: [CookieService,{ provide: Window, useValue: window },{ provide: PLATFORM_ID, useValue: 'browser' }],
+  providers: [CookieService,{ provide: Window, useValue: window },{ provide: PLATFORM_ID, useValue: 'browser' },LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

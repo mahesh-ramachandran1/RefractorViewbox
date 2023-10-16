@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PassawordTextBoxComponent } from './components/passaword-text-box/passaword-text-box.component';
+import { PasswordTextboxComponent } from './components/passaword-text-box/passaword-text-box.component';
 import { ConfirmDialogueViewComponent } from './components/confirm-dialogue-view/confirm-dialogue-view.component';
+import { FormsModule } from '@angular/forms';
+
 
 
 
 @NgModule({
   declarations: [
-    PassawordTextBoxComponent,
+    PasswordTextboxComponent,
     ConfirmDialogueViewComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
-    PassawordTextBoxComponent,
+    PasswordTextboxComponent,
     ConfirmDialogueViewComponent
   ]
 })

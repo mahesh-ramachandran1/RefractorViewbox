@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-{overflow-y:auto;overflow-x:hidden;background-color:#f3f6f8;color:#2e4453;padding-right:0!important;}
 body::-webkit-scrollbar{width:16px}
 body::-webkit-scrollbar-button{background-color:#f1f1f1}
 body::-webkit-scrollbar-button:vertical:decrement{background:url(/Content/img/up-arrow.png) center/50% no-repeat #f1f1f1}

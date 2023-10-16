@@ -14,6 +14,6 @@ export class LoginService {
   validateLogin(){}
 
   getLanguages() : Observable<any[]> {
-   return this.http.get<any[]> (this.baseApiUrl + '/api/languages')
+   return this.http.get<any[]> (this.baseApiUrl + '/api/Languages/en');
   }
 }

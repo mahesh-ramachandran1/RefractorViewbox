@@ -18,6 +18,17 @@ label{text-transform:none}
 #support-desk-footer{margin-top:0}
 .passwordstrengthinputbox{z-index:3;width:100%;background:transparent;position:absolute}
 #password-textbox{color: #3a486b; }
+.btn-like-text {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    color: #054876; /* Customize the color to your preference */
+    font-weight: bold; /* Optionally, add an underline */
+  }
+  
 /*delay translation key css fix*/
 /*.translate-cloak {display: none !important;}*/
 
