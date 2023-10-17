@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from './services/login.service';
+import { AccountService } from './services/account/account.service';
 
 
 
@@ -25,8 +26,9 @@ import { LoginService } from './services/login.service';
     HttpClientModule,
     FormsModule,
     
+    
   ],
-  providers: [CookieService,{ provide: Window, useValue: window },{ provide: PLATFORM_ID, useValue: 'browser' },LoginService],
+  providers: [CookieService,{ provide: Window, useValue: window },{ provide: PLATFORM_ID, useValue: 'browser' },LoginService,AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

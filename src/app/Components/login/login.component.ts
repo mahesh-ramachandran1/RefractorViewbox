@@ -8,6 +8,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { PasswordTextboxComponent } from 'src/app/shared/components/passaword-text-box/passaword-text-box.component';
 import { ConfirmDialogueViewComponent } from 'src/app/shared/components/confirm-dialogue-view/confirm-dialogue-view.component';
 import { LoginService } from 'src/app/services/login.service';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   passaword! :any;
   selectedLanguage!: string;
   selectedOption!: string;
-  projectName!: string;
+  projectName: string | undefined;
   clientLogo! : string;
   forceLogoutMessage :string | undefined;
   userName! : string;
@@ -48,7 +49,6 @@ loginFlag: number = 0;
   showForceLogoutMessage: boolean | undefined;
   token: string | null | undefined;
   enableAzureADLogin: boolean | undefined;
-  accountService: any;
   languageService: any;
   MSALPopup: any;
   setLanguageToDefault: any;
@@ -73,14 +73,17 @@ loginFlag: number = 0;
       this.login(); // For example, you might want to call your login function
     }
   }
-constructor(private loginService :LoginService ,private http: HttpClient, private cookieService: CookieService,private router: Router, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
+constructor( private accountService : AccountService,private loginService :LoginService ,private http: HttpClient, private cookieService: CookieService,private router: Router, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
 
 
 
   ngOnInit(): void 
   { this.getLanguages();
+    this.login();
+    this.changedLanguage();
+    
     // this.logout = false;
-    this.projectName ="abc";
+    // this.projectName ="";
     this.oktaLogin = (window as any)['jsonLogindisable'];
     const isIE = /*@cc_on!@*/false || !!document.DOCUMENT_NODE;
     let net: any = null;
@@ -113,7 +116,6 @@ constructor(private loginService :LoginService ,private http: HttpClient, privat
     }
 
     this.remember = false;
-    this.projectName = "";
 
     this.isForceLogout = localStorage.getItem("forceLogout") ? localStorage.getItem("forceLogout") : (this.cookieService.get("ForceSessionLogout") ? this.cookieService.get("ForceSessionLogout") : 'false');
 
@@ -275,7 +277,7 @@ JsonOktaLogin(): void {
 }
 async getAutoDeleteNewUser(): Promise<void> {
   const response = await this.accountService.getAutoDeleteNewUser();
-  sessionStorage.setItem("AutoDeleteNewUser", response);
+  sessionStorage.setItem("AutoDeleteNewUser", "");
 }
 async getLanguage(): Promise<void> {
   const languages = await this.languageService.getLanguages();
@@ -320,31 +322,42 @@ async getLanguage(): Promise<void> {
 }
 
 async getViewboxName(): Promise<void> {
-  if (this.accountService.getViewBoxN()) {
-    this.projectName = this.accountService.getViewBoxN();
-  } else {
-    const response = await this.accountService.getViewboxName();
-    this.accountService.setViewBoxN(response);
+  try {
+    const response = await this.accountService.getViewboxName().toPromise();
     this.projectName = response;
+  } catch (error) {
+    console.error('Error fetching ViewboxName:', error);
   }
 }
 
 async getInactiveUser(): Promise<void> {
-  const response = await this.accountService.getInactiveUser();
-  sessionStorage.setItem("InActiveUser", response);
+  try {
+    const response = await this.accountService.getInactiveUser().toPromise();
+    sessionStorage.setItem("InActiveUser", JSON.stringify(response));
+  } catch (error) {
+    console.error('Error fetching InactiveUser:', error);
+  }
 }
 
 async getLogoSetting(): Promise<void> {
-  const response = await this.accountService.getLogoSetting();
-  this.clientLogo = response.LogoName;
+  try {
+    const response = await this.accountService.getLogoSetting().toPromise();
+    this.clientLogo = response.LogoName;
+  } catch (error) {
+    console.error('Error fetching LogoSetting:', error);
+  }
 }
 
 async getAuthTimeout(): Promise<void> {
-  const response = await this.accountService.getCookieLogoutTime();
-  sessionStorage.setItem("AuthTimeout", response);
+  try {
+    const response = await this.accountService.getCookieLogoutTime().toPromise();
+    sessionStorage.setItem("AuthTimeout", JSON.stringify(response));
+  } catch (error) {
+    console.error('Error fetching CookieLogoutTime:', error);
+  }
 }
-
-savePassword(): void {
+savePassword(): void
+ {
   if (this.remember) {
     localStorage.setItem('rememberMe', 'true'); // Convert boolean to string
   } else {
@@ -428,13 +441,14 @@ getSystemInfo(): void
       Website: `${this.location.host}:${this.location.port}`
     };
 
-    this.accountService.GetSystemInfo(logData)
-      .then((response: any) => {
-        // Handle the response if needed
-      })
-      .catch((error: any) => {
-        // Handle errors if any
-      });
+    this.accountService.getOnlyRights().subscribe(
+      response => {
+        // Handle the response here
+      },
+      error => {
+        // Handle the error here
+      }
+    );
   }
 }
 validateLoginInputs(): boolean {
@@ -504,14 +518,15 @@ login(): void {
       loginFlag = 1;
 
       // -----------need to create a account service--------
-      this.accountService 
+      this.accountService
         .login(
           this.userName,
-          this.password,
-          this.token,
-          this.remember,
+          this.password?this.passaword:'',
+          this.token?this.token:'',
+          this.remember?this.remember:false,
           logData,
-          dateTimenew
+          dateTimenew,
+          ""
         )
         .subscribe(
           (response: { Status: number; Body: string; }) => {
