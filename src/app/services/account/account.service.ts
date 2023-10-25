@@ -25,7 +25,7 @@ export class AccountService {
 
   
   constructor(private http: HttpClient) {
-    this.antiForgeryToken = (<HTMLInputElement>document.querySelector('input[name="__RequestVerificationToken"]')).value;
+    this.antiForgeryToken = (<HTMLInputElement>document.querySelector('input[name="__RequestVerificationToken"]'))?.value;
     this.checkBrowser();
   }
   private checkBrowser() 
@@ -657,10 +657,4 @@ export class AccountService {
   revalidatePassword(password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl+"ReValidatePassword/", { Password: password });
   }
-
-
-
-
-
-
 }

@@ -73,7 +73,7 @@ export class PasswordTextboxComponent implements OnInit
 
   ngOnInit(): void {
     this.passwordCheck =false;
-    this.activateTooltip();
+    // this.activateTooltip();
     // this.oktaLogin = window.jsonLogindisable;
     // this.languageService.init();
     // this.getPasswordValidationSetting();

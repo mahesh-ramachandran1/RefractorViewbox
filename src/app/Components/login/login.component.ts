@@ -9,6 +9,7 @@ import { PasswordTextboxComponent } from 'src/app/shared/components/passaword-te
 import { ConfirmDialogueViewComponent } from 'src/app/shared/components/confirm-dialogue-view/confirm-dialogue-view.component';
 import { LoginService } from 'src/app/services/login.service';
 import { AccountService } from 'src/app/services/account/account.service';
+import { LanguageService } from 'src/app/services/language/language.service';
 
 @Component({
   selector: 'app-login',
@@ -49,7 +50,7 @@ loginFlag: number = 0;
   showForceLogoutMessage: boolean | undefined;
   token: string | null | undefined;
   enableAzureADLogin: boolean | undefined;
-  languageService: any;
+  LanguageService: any;
   MSALPopup: any;
   setLanguageToDefault: any;
   textWarning: boolean | undefined;
@@ -73,14 +74,14 @@ loginFlag: number = 0;
       this.login(); // For example, you might want to call your login function
     }
   }
-constructor( private accountService : AccountService,private loginService :LoginService ,private http: HttpClient, private cookieService: CookieService,private router: Router, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
+constructor( private accountService : AccountService,private loginService :LoginService, private languageService : LanguageService,private http: HttpClient, private cookieService: CookieService,private router: Router, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
 
 
 
   ngOnInit(): void 
   { this.getLanguages();
     this.login();
-    this.changedLanguage();
+    // this.changedLanguage();
     
     // this.logout = false;
     // this.projectName ="";
@@ -232,7 +233,7 @@ checkIE(): void {
 
 getLanguages(): void 
 {
-  this.loginService.getLanguages().subscribe(languages =>{
+  this.languageService.getLanguages().subscribe((languages: any ) =>{
     const lang = this.cookieService.get('__APPLICATION_LANGUAGE') || 'en';
 
     for (let i = 0; i < languages.length; i++) {
@@ -279,47 +280,47 @@ async getAutoDeleteNewUser(): Promise<void> {
   const response = await this.accountService.getAutoDeleteNewUser();
   sessionStorage.setItem("AutoDeleteNewUser", "");
 }
-async getLanguage(): Promise<void> {
-  const languages = await this.languageService.getLanguages();
-  const lang = this.cookieService.get('__APPLICATION_LANGUAGE') || 'en';
+// async getLanguage(): Promise<void> {
+//   const languages = await this.languageService.getLanguages();
+//   const lang = this.cookieService.get('__APPLICATION_LANGUAGE') || 'en';
 
-  for (let i = 0; i < languages.length; i++) {
-    if (languages[i].value.toLowerCase() == lang) {
-      this.selectedLanguage = languages[i].title;
-      languages.splice(i, 1);
-    }
+//   for (let i = 0; i < languages.length; i++) {
+//     if (languages[i].value.toLowerCase() == lang) {
+//       this.selectedLanguage = languages[i].title;
+//       languages.splice(i, 1);
+//     }
 
-    if (i == languages.length - 1 && !this.selectedLanguage) {
-      switch (languages[i].title) {
-        case 'German':
-        case 'Deutch':
-          if (languages[i].value == 'en')
-            this.selectedLanguage = 'German';
-          else
-            this.selectedLanguage = 'Deutch';
-          break;
-        case "English":
-        case "Englisch":
-          if (languages[i].value == 'en')
-            this.selectedLanguage = 'English';
-          else
-            this.selectedLanguage = 'Englisch';
-          break;
-        default:
-          this.selectedLanguage = languages[i].title;
-          break;
-      }
-      const expireDate = new Date();
-      expireDate.setDate(expireDate.getDate() + 1);
-      this.cookieService.set('__APPLICATION_LANGUAGE', languages[i].value, expireDate, '/');
-      languages.splice(i, 1);
-      this.languageService.setLanguageToDefault();
-    }
-  }
+//     if (i == languages.length - 1 && !this.selectedLanguage) {
+//       switch (languages[i].title) {
+//         case 'German':
+//         case 'Deutch':
+//           if (languages[i].value == 'en')
+//             this.selectedLanguage = 'German';
+//           else
+//             this.selectedLanguage = 'Deutch';
+//           break;
+//         case "English":
+//         case "Englisch":
+//           if (languages[i].value == 'en')
+//             this.selectedLanguage = 'English';
+//           else
+//             this.selectedLanguage = 'Englisch';
+//           break;
+//         default:
+//           this.selectedLanguage = languages[i].title;
+//           break;
+//       }
+//       const expireDate = new Date();
+//       expireDate.setDate(expireDate.getDate() + 1);
+//       this.cookieService.set('__APPLICATION_LANGUAGE', languages[i].value, expireDate, '/');
+//       languages.splice(i, 1);
+//       this.languageService.setLanguageToDefault();
+//     }
+//   }
 
-  this.languages = languages;
-  this.logout = sessionStorage.getItem('logout') == 'true';
-}
+//   this.languages = languages;
+//   this.logout = sessionStorage.getItem('logout') == 'true';
+// }
 
 async getViewboxName(): Promise<void> {
   try {
