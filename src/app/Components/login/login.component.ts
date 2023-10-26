@@ -58,7 +58,6 @@ loginFlag: number = 0;
   passwordWarning: boolean | undefined;
   password: string | undefined;
   passwordInvalid: boolean | undefined;
-  location: any;
   loading: boolean | undefined;
   modalTitle: string | undefined;
   modalText: string | undefined;
@@ -74,12 +73,13 @@ loginFlag: number = 0;
       this.login(); // For example, you might want to call your login function
     }
   }
-constructor( private accountService : AccountService,private loginService :LoginService, private languageService : LanguageService,private http: HttpClient, private cookieService: CookieService,private router: Router, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
+constructor( private accountService : AccountService,private loginService :LoginService, private languageService : LanguageService,private http: HttpClient, private cookieService: CookieService,private router: Router, private location: Location, private window: Window ,@Inject(PLATFORM_ID) private platformId: any) {}
 
 
 
   ngOnInit(): void 
-  { this.getLanguages();
+  {
+    this.getLanguages();
     this.login();
     // this.changedLanguage();
     
@@ -439,7 +439,7 @@ getSystemInfo(): void
       BrowserName: logDetails[0].BrowserName,
       BrowserVersion: logDetails[0].BrowserVersion,
       LogType: 'Login',
-      Website: `${this.location.host}:${this.location.port}`
+      // Website: `${this.location.host}:${this.location.port}`
     };
 
     this.accountService.getOnlyRights().subscribe(
