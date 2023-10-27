@@ -19,7 +19,7 @@ import { LanguageService } from 'src/app/services/language/language.service';
 export class LoginComponent implements OnInit {
   notdefine :boolean =false;
   isCapsLockOn : boolean = false;
-  jsonLogin : boolean = false;
+  jsonLogin : boolean = true;
   showADLogin : boolean = false;
   logout : boolean = false;
   showTextWarning :boolean = false;
@@ -37,13 +37,12 @@ export class LoginComponent implements OnInit {
  languages:any[] = [
   { value: 'en', title: 'English' },
   { value: 'hi', title: 'Hindi' }
-  // Add more languages if needed
 ];
 options:any[] = ['a','b'];
 
 loginFlag: number = 0;
   oktaLogin: any;
-  jsonLoginSet: boolean = false;
+  jsonLoginSet: boolean = true;
   authorizedAccess: boolean | undefined;
   remember: boolean | undefined;
   isForceLogout: any;
@@ -81,21 +80,20 @@ constructor( private accountService : AccountService,private loginService :Login
   {
     this.getLanguages();
     this.login();
-    // this.changedLanguage();
+    this.changedLanguage();
     
-    // this.logout = false;
-    // this.projectName ="";
+    this.logout = false;
+    this.projectName ="";
     this.oktaLogin = (window as any)['jsonLogindisable'];
     const isIE = /*@cc_on!@*/false || !!document.DOCUMENT_NODE;
     let net: any = null;
     let username: string | null = null;
     let userDomain: string | null = null;
-    this.jsonLoginSet = false;
+    this.jsonLoginSet = true;
     const ssoLoginAllow = (window as any)['ssoLogin'];
 
     if (ssoLoginAllow === true || ssoLoginAllow === 'true') {
       if (isIE) {
-        // net = new ActiveXObject("WScript.NetWork");
         username = net.UserName;
         userDomain = net.UserDomain;
       }
@@ -220,12 +218,10 @@ checkIE(): void {
   const isIE = /*@cc_on!@*/false || !!document.DOCUMENT_NODE;
   if (isIE) {
       try {
-          // const net = new ActiveXObject("WScript.NetWork");
-          // this.model.userName = net.UserName;
-          // this.model.userDomain = net.UserDomain;
+          
       } catch (e) {
           console.error("Error accessing ActiveXObject: ", e);
-          // Handle the error as needed
+          
       }
   }
 }
@@ -265,11 +261,9 @@ getLanguages(): void
       }
     }
 
-    // this.model.languages = languages ;
     this.logout = sessionStorage.getItem('logout') === 'true';
   });
   
-  // Your getLanguages function
 }
 
 JsonOktaLogin(): void {
@@ -280,47 +274,7 @@ async getAutoDeleteNewUser(): Promise<void> {
   const response = await this.accountService.getAutoDeleteNewUser();
   sessionStorage.setItem("AutoDeleteNewUser", "");
 }
-// async getLanguage(): Promise<void> {
-//   const languages = await this.languageService.getLanguages();
-//   const lang = this.cookieService.get('__APPLICATION_LANGUAGE') || 'en';
 
-//   for (let i = 0; i < languages.length; i++) {
-//     if (languages[i].value.toLowerCase() == lang) {
-//       this.selectedLanguage = languages[i].title;
-//       languages.splice(i, 1);
-//     }
-
-//     if (i == languages.length - 1 && !this.selectedLanguage) {
-//       switch (languages[i].title) {
-//         case 'German':
-//         case 'Deutch':
-//           if (languages[i].value == 'en')
-//             this.selectedLanguage = 'German';
-//           else
-//             this.selectedLanguage = 'Deutch';
-//           break;
-//         case "English":
-//         case "Englisch":
-//           if (languages[i].value == 'en')
-//             this.selectedLanguage = 'English';
-//           else
-//             this.selectedLanguage = 'Englisch';
-//           break;
-//         default:
-//           this.selectedLanguage = languages[i].title;
-//           break;
-//       }
-//       const expireDate = new Date();
-//       expireDate.setDate(expireDate.getDate() + 1);
-//       this.cookieService.set('__APPLICATION_LANGUAGE', languages[i].value, expireDate, '/');
-//       languages.splice(i, 1);
-//       this.languageService.setLanguageToDefault();
-//     }
-//   }
-
-//   this.languages = languages;
-//   this.logout = sessionStorage.getItem('logout') == 'true';
-// }
 
 async getViewboxName(): Promise<void> {
   try {
@@ -415,12 +369,7 @@ removeError(): void {
   this.showForceLogoutMessage = false;
 }
 
-// async setLanguage(language: string): Promise<void> {
-//   await this.languageService.setLanguage(language, false);
-//   const isLanguageChanged = true;
-//   const changedLanguage = language;
-//   await this.getLanguage();
-// }
+
 
 getSystemInfo(): void 
 {
@@ -439,15 +388,12 @@ getSystemInfo(): void
       BrowserName: logDetails[0].BrowserName,
       BrowserVersion: logDetails[0].BrowserVersion,
       LogType: 'Login',
-      // Website: `${this.location.host}:${this.location.port}`
     };
 
     this.accountService.getOnlyRights().subscribe(
       response => {
-        // Handle the response here
       },
       error => {
-        // Handle the error here
       }
     );
   }
@@ -533,8 +479,7 @@ login(): void {
           (response: { Status: number; Body: string; }) => {
             localStorage.removeItem('forceLogout');
             localStorage.removeItem('dateFormatObject');
-            // $cookies.delete('__DATE_FORMAT');
-            // $cookies.delete('IsLogin');
+           
             this.isForceLogout = false;
 
             localStorage.setItem('rememberMe', `${this.remember}`);
@@ -550,7 +495,7 @@ login(): void {
 
               this.accountService.getOnlyRights().subscribe(
                 (response: any) => {
-                  // Handle the response if needed
+                  
                 },
                 (error: any) => {
                   console.error(error);
@@ -564,8 +509,7 @@ login(): void {
 
               setTimeout(() => {
                 sessionStorage.setItem('adtoken', 'false');
-                // this.router.navigate(['AuthenticationPage']);
-                // this.router.navigate(['/authentication']); // Use Angular Router to navigate
+               
               }, 500);
             } else if (response?.Status === 2) {
               if (response?.Body === 'SystemMaintenance') {
@@ -592,15 +536,13 @@ msalogin(): void
     return;
   }
 
-  // if (loginFlag == 0) {
+  
     sessionStorage.setItem('logout', 'false');
 
     // Assuming getSystemInfo is a function defined in your service
     this.getSystemInfo();
 
-    // Assuming validateLoginInputs is a function defined in your service
-    // if (this.validateLoginInputs()) {
-
+   
     this.loading = false;
     this.modalTitle = '';
     this.modalText = '';
@@ -630,290 +572,14 @@ msalogin(): void
 
     const loginFlag = 1;
 
-    // this.ADlogin(this.userName, '', this.userDomain, dateTimenew)
-    // {
-    //     if (Response !== undefined || Response !== null) {
-    //       localStorage.removeItem('dateFormatObject');
-    //       localStorage.removeItem('__DATE_FORMAT');
-    //       localStorage.removeItem('IsLogin');
-
-    //       localStorage.setItem('rememberMe', this.rememberMe || ''); // Assuming rememberMe is a string
-
-    //       if (!Response) {
-    //         this.loading = true;
-    //       }
-
-    //       if (Response.length === 0) {
-    //         if (this.isLanguageChanged) {
-    //           // this.saveLanguage(this.changedLanguage);
-    //         }
-    //         this.adUser = JSON.parse(sessionStorage.getItem('adtoken') || '{}');
-    //         localStorage.setItem('username', `${this.userName}`);
-    //         this.modalTitle = 'EmailSent';
-    //         this.modalText = 'AuthenticationTokenSentViaEmail';
-    //         this.modalLoading = false;
-    //         this.loading = true;
-    //         this.modelBtnClose = true;
-    //         this.modelForceLogout = false;
-    //         const loginFlag = 0;
-    //         this.router.navigate(['/Dashboard/list']);
-    //       } else if (Response.length === 1) {
-    //         this.loading = true;
-    //         localStorage.setItem('username', `${this.userName}`);
-    //         setTimeout(() => {
-    //           this.router.navigate(['/AuthenticationPage']);
-    //         }, 500);
-    //       } else if (Response.length === 2) {
-    //         // if ( SystemMaintanance=== 'SystemMaintanance') {
-    //         //   window.location.href = '/Account/Login#/maintenanceNotification';
-    //           return;
-    //         }
-    //         this.passwordWarning = false;
-    //         this.textWarning = true;
-    //         this.loading = true;
-    //         const loginFlag = 0;
-          // } else if (Response.length === 7) 
-          // {
-          //   this.modalTitle = Response.Header;
-          //   this.modalText = Response.Body;
-          //   this.modalLoading = false;
-          //   this.loading = true;
-          //   this.modelClose = true;
-          //   this.modelBtnClose = true;
-          //   this.modelForceLogout = true;
-          //   document.querySelector('#confirmDialog')?.classList.add('show');
-
-          //   // Bind function to Force & Ok button
-          //   const forceButton = document.querySelector('#btnForceConfirmYes');
-          //   forceButton?.addEventListener('click', () => {
-          //     this.setCursor();
-          //     this.updateForceLogoutSession(this.userName)
-          //       .subscribe((resp: any) => {
-          //         this.resetCursor();
-          //         if (resp.status) {
-          //           const loginFlag = 0;
-          //           document.querySelector('#confirmDialog')?.classList.delete('show');
-          //           this.msalogin();
-          //         }
-          //       });
-          //   });
-
-          //   const okButton = document.querySelector('#btnYesConfirmYesNo');
-          //   okButton?.addEventListener('click', () => {
-          //     const loginFlag = 0;
-          //     document.querySelector('#confirmDialog')?.classList.delete('show');
-          //   });}
-//             }else {
-//               const loginFlag = 0;
-//               this.loading = true;
-//               this.modalTitle = Response.Header;
-//               this.modalText = response.Body;
-//               this.modalLoading = false;
-//               this.modelBtnClose = true;
-//               this.modelClose = true;
-//               document.querySelector('#confirmDialog')?.classList.add('show');
-
-//               // Bind function to Ok button
-//               const okButton = document.querySelector('#btnYesConfirmYesNo');
-//               okButton?.addEventListener('click', () => {
-//                 if (response.Status !== 10) {
-//                   document.querySelector('#confirmDialog')?.classList.delete('show');
-//                 } else {
-//                   window.location.href = '/Account/Login#/';
-//                 }
-//               });
-//             }
-//           }ADlogin(userName: string | undefined, arg1: string, userDomain: any, dateTimenew: string) {
-//     throw new Error('Method not implemented.');
-//   }
-//  else {
-//             this.resetCursor();
-//           }
-//         });
-//     }
-//   saveLanguage(changedLanguage: any) {
-//     throw new Error('Method not implemented.');
-//   }
-//   ADlogin(userName: string | undefined, arg1: string, userDomain: any, dateTimenew: string) {
-//     throw new Error('Method not implemented.');
-//   }
-//   }
-
-
-  // this.ssoLogin(Response)  {
-  // localStorage.removeItem('forceLogout');
-  // localStorage.removeItem('dateFormatObject');
-  // localStorage.removeItem('__DATE_FORMAT');
-  // localStorage.removeItem('IsLogin');
-  // // isForceLogout :boolean = false;
-
-  // localStorage.setItem('rememberMe', `true`);
-  // if (!Response){
-      // model.loading = true;
-      // let changedLanguage = 'en';
-      // let languageService ='';
-  //     let Response: { Status: number  } 
-  // if (Response  && Response.Status === 0) {
-  //     if (onlanguagechange) {
-  //         // languageService.saveLanguage(changedLanguage.toString());
-  //     }}
-
-      // accountService.getOnlyRights().subscribe((response) => {
-      //     var hasAdminRight, hasDocumentArchive, hasExportRight, hasAVAdmin, hasAdUser, hasAdminDelete;
-      //     var expireDate = new Date();
-      //     expireDate.setDate(expireDate.getDate() + 1);
-
-      //     if (response.data !== undefined && response.data !== null && response.data !== "") {
-      //         hasAdminRight = response.data.AdminRights;
-      //         hasAVAdmin = response.data.AVAdminRights;
-      //         hasDocumentArchive = response.data.DocumentArchiveRights;
-      //         hasAdUser = response.data.ADUser;
-      //         hasAdminDelete = response.data.AdminDelete;
-
-      //         if (response.status === 200) {
-      //             hasExportRight = response.data.ExportRights;
-      //         } else {
-      //             hasExportRight = false;
-      //         }
-
-      //         localStorage.setItem('hasExportRight', hasExportRight);
-      //         if (hasAdminRight) localStorage.setItem('hasAdminRight', hasAdminRight);
-      //         localStorage.setItem('hasDocumentArchive', hasDocumentArchive);
-      //         if (hasAVAdmin) localStorage.setItem('hasAVAdmin', hasAVAdmin);
-      //         localStorage.setItem('hasAdUser', hasAdUser);
-      //         localStorage.setItem('hasAdUserSSO', hasAdUser);
-      //         localStorage.setItem('hasAdminDelete', hasAdminDelete);
-      //     } else {
-      //         localStorage.removeItem('hasExportRight');
-      //         localStorage.removeItem('hasAdminRight');
-      //         localStorage.removeItem('hasDocumentArchive');
-      //         localStorage.removeItem('hasDocumentation');
-      //         localStorage.removeItem('hasAVAdmin');
-      //         localStorage.removeItem('hasAdUser');
-      //         localStorage.removeItem('hasAdUserSSO');
-      //         localStorage.removeItem('hasAdminDelete');
-      //     }
-
-      //     accountService.getDocumentsByUserRights().subscribe((response) => {
-      //         if (response.DataRetrievalProtocol && response.ProcessDocumentation) {
-      //             localStorage.setItem('hasDocumentation', 'false');
-      //         } else {
-      //             localStorage.setItem('hasDocumentation', 'true');
-      //         }
-
-      //         window.location.href = "/#/Dashboard/list";
-      //     });
-      // });
-  }
-  // Add other response.Status conditions here...
-  // ...
+   
 };
 
-// model.MSALPopup = function () {
-
-//   const msalConfig = {
-//       auth: {
-//           clientId: (window as any).azureADClientId,
-//           authority: `https://login.microsoftonline.com/${(window as any).azureADTenantId}`,
-//           redirectUri: (window as any).azureADRedirectUri,
-//           tenantId: (window as any).azureADTenantId
-//       },
-//       cache: {
-//           cacheLocation: "sessionStorage",
-//           storeAuthStateInCookie: false,
-//       },
-//       system: {
-//           loggerOptions: {
-//               loggerCallback: (level: any, message: any, containsPii: any) => {
-//                   if (containsPii) {
-//                       return;
-//                   }
-//                   switch (level) {
-//                       case msal.LogLevel.Error:
-//                           console.error(message);
-//                           return;
-//                       case msal.LogLevel.Info:
-//                           console.info(message);
-//                           return;
-//                       case msal.LogLevel.Verbose:
-//                           console.debug(message);
-//                           return;
-//                       case msal.LogLevel.Warning:
-//                           console.warn(message);
-//                           return;
-//                   }
-//               }
-//           }
-//       }
-//   };
-
-//   const loginRequest = {
-//       scopes: ["User.Read"]
-//   };
-
-//   const myMsal = new msal.PublicClientApplication(msalConfig);
-
-//   // For Popup
-
-//   myMsal.loginPopup(loginRequest)
-//       .then((loginResponse: { account: { username: any; }; }) => {
-
-//           var userName = loginResponse.account.username;
-
-//           accountService.MSAlogin(userName).subscribe((response: { Status: number; Body: any; Header: any; }) => {
-//               var r = response;
-//               if (response.Status == 0) {
-//                   model.userName = response.Body;
-//                   model.msalogin();
-//               }
-//               else {
-//                   model.modalTitle = response.Header;
-//                   model.modalText = response.Body;
-//                   model.modalLoading = false;
-//                   model.loading = true;
-//                   model.modelClose = true;
-//                   model.modelBtnClose = true;
-//                   model.modelForceLogout = false;
-//                   angular.element(("#confirmDialog")).modal('show');
-//                   var okButton = angular.element('#btnYesConfirmYesNo');
-//                   okButton.bind('click', () => {
-//                       angular.element(("#confirmDialog")).modal('hide');
-//                   });
-//               }
-//           });
-//           console.log(loginResponse);
-
-//       }).catch((error: { errorCode: string; }) => {
-//           //login failure
-//           var lang = localStorage.getItem('__APPLICATION_LANGUAGE') || "en";
-//           if (error.errorCode !== "user_cancelled") {
-//               var scope = model;
-//               scope.$applyAsync(() => {
-//                   scope.modalLoading = false;
-//                   scope.modelBtnClose = true;
-//                   scope.modelClose = true;
-//                   scope.modelForceLogout = false;
-//                   scope.modalTitle = "Warning";
-//                   scope.modalText = lang == 'en' ? 'Something went wrong. Please try again or contact to support team.' : 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder wenden Sie sich an das Support-Team.';
-//               });
-
-//               angular.element("#confirmDialog").modal('show');
-//               // Bind function to Ok button
-//               var okButton = angular.element('#btnYesConfirmYesNo');
-//               okButton.bind('click', (e: any) => {
-//                   angular.element(("#confirmDialog")).modal('hide');
-//               });
-//           }
-//           console.log(error);
-//       });
-// };
+}
 
 
 
 // Add other methods as needed
 
-function validateLoginInputs() {
-throw new Error('Function not implemented.');
 
-}
  

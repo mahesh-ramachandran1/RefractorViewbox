@@ -113,7 +113,6 @@
             </div>
             <div class="row top-padding">
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center login-btn">
-                    <!-- <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" *ngIf="loading" tabindex="3" (click)="login()" style="margin-bottom: 8px;" [ngClass]="{'oktaDisable': oktaLogin=='true'}" /> -->
 
                     <input type="submit" name="doLogin" value="Login" class="btn btn-medium btnMdWidth" (click)="login()" />
                     <br />
@@ -126,7 +125,7 @@
                     <span *ngIf="jsonLogin"><br /><br /></span>
                     <span *ngIf="jsonLogin" class="text-center" translate>Or</span>
                     <span *ngIf="jsonLogin"><br /></span>
-                    <button *ngIf="jsonLogin" (click)="JsonOktaLogin()" class="btn btn-medium btnMdWidth btn-success" style="margin-top: 8px;margin-right:4px;">
+                    <button    class="btn btn-medium btnMdWidth btn-success" style="margin-top: 8px;margin-right:4px;" routerLink="/jasonLogin" >
                         <span translate>JsonTokenLogin</span>
                     </button>
                 </div>

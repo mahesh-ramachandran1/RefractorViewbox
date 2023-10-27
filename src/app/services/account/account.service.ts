@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, catchError, filter, forkJoin, map, of, takeUntil, throwError, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, catchError, filter, forkJoin, from, map, of, takeUntil, throwError, timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -8,6 +8,69 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AccountService {
+  getViewBoxN() {
+    throw new Error('Method not implemented.');
+  }
+  setViewBoxN(response: Observable<any>) {
+    throw new Error('Method not implemented.');
+  }
+  GetSystemInfo(logData: any): Observable<any> {
+    const antiForgeryToken = ''; // Assuming you have a value for antiForgeryToken
+
+    return from(
+      this.http.post('/api/Account/GetSystemInfo/', logData, {
+        headers: {
+          __RequestVerificationToken: antiForgeryToken
+        }
+      })
+    ).pipe(
+      map((response) => {
+        return 'done';
+      })
+    );
+  }
+  getDocumentsByUserRights(): Observable<any> {
+    return this.http.get('/api/Documentation/GetDocumentsByUserRights');
+  }
+
+  logClicks(text: string, activity: string): void {
+    const filter = { Text: text, Activity: activity };
+    this.http.post("/api/Log/LogClicks", filter).subscribe(
+      () => {},
+      error => {
+        // Handle error
+        console.error(error);
+      }
+    );
+  }
+
+  validatePhoneFormat(phone: string): boolean {
+    const re = /^[+-]?\d+$/;
+    return !phone || phone.length < 8 || !re.test(phone);
+  }
+  oktaLogin(email: string, dateTime: string): Observable<any> {
+    const logDetails = JSON.parse(sessionStorage.getItem('SessionName') || '{}');
+
+    const userObj = {
+      UserName: email,
+      userSystemInfoDto: {
+        BrowserSize: logDetails[0].BrowserSize,
+        MonitorResolution: logDetails[0].BrowserSize,
+        IP: logDetails[0].IP,
+        OS: logDetails[0].OS,
+        JavaScriptActive: logDetails[0].JavaScriptActive,
+        CookieEnable: logDetails[0].CookieEnable,
+        FlashVersion: logDetails[0].FlashVersion,
+        JavaVersion: logDetails[0].JavaVersion,
+        BrowserName: logDetails[0].BrowserName,
+        BrowserVersion: logDetails[0].BrowserVersion,
+        LogType: 'Login'
+      },
+      Date: dateTime
+    };
+
+    return this.http.post<any>("/api/Account/OktaLogin/", userObj);
+  }
   private apiUrl1 = environment.baseApiUrl;
   private apiUrl = environment.baseApiUrl +'/api/Account/'; // Update with your API URL
 
@@ -191,8 +254,31 @@ export class AccountService {
     this.renderer.setStyle(document.documentElement, 'cursor', 'wait');
     this.renderer.setStyle(document.body, 'pointer-events', 'none');
   }
-  getViewBoxName(): string | undefined {
-    return this.viewBoxName;
+  getViewboxName(): Observable<any> {
+    return this.http.get("/api/ViewboxSettings/GetViewboxName/").pipe(
+      catchError(error => {
+        // Handle errors
+        console.error(error);
+        return [];
+      })
+    );
+  }
+
+  getAllViewboxSystem(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get("/api/DeleteSystem/GetViewboxSystemsByUserRights")
+        .subscribe(
+          (response: any) => {
+            // Process the response
+            observer.next(response.data);
+            observer.complete();
+          },
+          error => {
+            // Handle errors
+            observer.error(error);
+          }
+        );
+    });
   }
 
   setViewBoxName(name: string) {
@@ -282,83 +368,14 @@ export class AccountService {
 
     return this.http.post<any>(this.apiUrl +'Login/', data, { headers })
       .pipe(
-        // Handle response or errors here if needed
+        
       );
   }
 
-  // ADlogin(username: string, state: number, userdomain: string, dateTime: string, scope: any): Observable<any> 
-  // {
-  //   const antiForgeryToken = ''; // Replace with actual token
-  //   const sessionValue = sessionStorage.getItem("SessionName");
-    
-  //     const logDetails = JSON.parse(sessionValue ?sessionValue : 'null' );
-  //     console.log(logDetails);
-    
-
-  //   let logData;
-
-  //   if (state == 2) {
-  //     logData = {
-  //       Username: username,
-  //       userSystemInfoDto: {},
-  //       domain: userdomain,
-  //       Date: dateTime
-  //     };
-  //   } else {
-  //     if (logDetails ) { // Check if logDetails is defined and has at least one element
-  //       const firstLogDetail = logDetails[0];
-  //       if (firstLogDetail) {
-  //         logData = {
-  //           Username: username,
-  //           userSystemInfoDto: { 
-  //             _BrowserSize: firstLogDetail.BrowserSize || null,
-  //             get BrowserSize() {
-  //               return this._BrowserSize;
-  //             },
-  //             set BrowserSize(value) {
-  //               this._BrowserSize = value;
-  //             },
-  //             MonitorResolution: firstLogDetail.BrowserSize || null,
-  //             IP: firstLogDetail.IP || null,
-  //             _OS: firstLogDetail.OS || null,
-  //             get OS() {
-  //               return this._OS;
-  //             },
-  //             set OS(value) {
-  //               this._OS = value;
-  //             },
-  //             JavaScriptActive: firstLogDetail.JavaScriptActive || null,
-  //             CookieEnable: firstLogDetail.CookieEnable || null,
-  //             FlashVersion: firstLogDetail.FlashVersion || null,
-  //             JavaVersion: firstLogDetail.JavaVersion || null,
-  //             BrowserName: firstLogDetail.BrowserName || null,
-  //             BrowserVersion: firstLogDetail.BrowserVersion || null,
-  //             LogType: 'Login'
-  //           },
-  //           domain: userdomain,
-  //           Date: dateTime
-  //         };
-  //       }
-
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     '__RequestVerificationToken': antiForgeryToken
-  //   });
-
-  //   return this.http.post<any>('/api/Account/ADLogin', logData, { headers })
-  //     .pipe(
-  //       // Handle response or errors here if needed
-  //     );
-  // }
   
 
-  //     }
- 
-  //    }
-
-
   tokenLogin(username: string, token: string, remember: boolean, browserData: any): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -414,7 +431,7 @@ export class AccountService {
           return response;
         }),
         catchError(error => {
-          // Handle error
+          
           return [];
         })
       );
@@ -429,7 +446,7 @@ export class AccountService {
       }
     }).pipe(
       catchError(error => {
-        // Handle error
+       
         return [];
       })
     );
@@ -444,7 +461,7 @@ export class AccountService {
       }
     }).pipe(
       catchError(error => {
-        // Handle error
+        
         return [];
       })
     );
@@ -453,7 +470,7 @@ export class AccountService {
     return this.http.post<any>(this.apiUrl +'PasswordUpdateToken/', { UserName: userName, Url: window.location.href })
       .pipe(
         catchError(error => {
-          // Handle error
+         
           return [];
         })
       );
@@ -463,7 +480,7 @@ export class AccountService {
     return this.http.post<any>( this.apiUrl +'GenerateTwoStepToken/', { UserName: userName })
       .pipe(
         catchError(error => {
-          // Handle error
+          
           return [];
         })
       );
@@ -490,7 +507,7 @@ export class AccountService {
     return this.http.patch<any>(this.apiUrl +`${userName}/${countryCode}/${systemId}`, logData)
       .pipe(
         catchError(error => {
-          // Handle error
+          
           return [];
         })
       );
@@ -505,9 +522,7 @@ export class AccountService {
     return this.http.get(this.apiUrl1+'/api/Account/GetInactiveUser/');
   }
 
-  getViewboxName(): Observable<any> {
-    return this.http.get(this.apiUrl1+"/api/ViewboxSettings/GetViewboxName/");
-  }
+ 
   getCookieLogoutTime(): Observable<any> {
     return this.http.get(this.apiUrl1+'/api/ViewboxSettings/GetCookieExpireTime');
   }
@@ -528,12 +543,10 @@ export class AccountService {
 
     return this.http.post(this.apiUrl+'CheckUserRights/', pageDetails);
   }
-  getAllViewboxSystem(): Observable<any> {
-    return this.http.get(this.apiUrl1+"/api/DeleteSystem/GetViewboxSystemsByUserRights");
-  }
+ 
 
   resetPassword(userId: string, token: string, password: string): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"ResetPassword", {
       Id: userId,
@@ -546,7 +559,7 @@ export class AccountService {
     });
   }
   updateUsername(newUsername: string): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"UpdateUsername/", {
       UserName: newUsername
@@ -557,7 +570,7 @@ export class AccountService {
     });
   }
   updateName(newName: string): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"Account/UpdateName/", {
       Name: newName
@@ -569,7 +582,7 @@ export class AccountService {
   }
 
   updateEmail(newEmail: string): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"UpdateEmail/", {
       Email: newEmail
@@ -581,7 +594,7 @@ export class AccountService {
   }
 
   updatePassword(passwords: string[], browserData: any): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"UpdatePassword/", {
       UserName: passwords[0],
@@ -600,7 +613,7 @@ export class AccountService {
   }
 
   sendConfirmationEmail(): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"SendVerificationEmail/", {
       Url: window.location.href
@@ -612,7 +625,7 @@ export class AccountService {
   }
 
   confirmEmail(userName: string, token: string): Observable<any> {
-    const antiForgeryToken = ''; // Replace with actual token
+    const antiForgeryToken = ''; 
 
     return this.http.post(this.apiUrl+"ConfirmEmail/", {
       UserName: userName,

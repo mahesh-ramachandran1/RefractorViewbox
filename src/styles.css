@@ -173,50 +173,7 @@ input[type="file"]:focus,input[type="radio"]:focus,input[type="checkbox"]:focus{
     cursor:default;
 }
 
-/*#dynamicTreeDiv .dynamicTree ul li {
-    border: 1px solid #c8d7e1;
-}*/
-/*.jstree-grid-header-regular {
-    border-bottom: 0px solid #c8d7e1;
-}
-#dynamicTreeDiv .dynamicTree ul {
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid #c8d7e1;
-}
 
-#dynamicTreeDiv .dynamicTree ul li {
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #c8d7e1;
-}
-#dynamicTreeDiv .dynamicTree ul li:last-child {
-    border-bottom: none;
-}
-
-
-}.jstree-node, .jstree-children, .jstree-container-ul {
-    border-left: none;
-    border-bottom: none;
-    border-top: 1px solid #c8d7e1;
-    border-right: none;
-}
-.jstree-grid-column-1 {
-    border: none;
-}
-
-.jstree-grid-column-1 div {
-    border-bottom: 1px solid #c8d7e1;
-}
-
-.jstree-default > .jstree-grid-cell-root-tree {
-    line-height: 25px;
-    height: 25px;
-}*/
-
-/*ul#groupStatusDropDown li {
-    border-bottom: 1px solid #c8d7e1;
-}*/
     #setWidth .dropbtn,#setWidth .dropdown-menu{min-width:62px!important}
 #assignRolesAlignment .content{padding-top:16px}
 #assignRolesAlignment .content1{padding-top:13px}
@@ -498,13 +455,7 @@ html.gecko #viewbox-logging .table #table-body,html.gecko #viewbox-logging #Gene
 .dropdown-empty-search-list {max-height: 111px;overflow-y: hidden;}
 .dropdown-search-list{max-height:111px;overflow-x: hidden;overflow-y:auto;width:100%}
 .dropdown-empty-search-list {max-height: 111px;overflow-y: hidden;}
-/*#complexfilter .dropdown-search-list {
-    min-height: 35px;
-    height: 111px;
-    overflow-y: auto;
-    width: 100%;
-    max-height: 111px;
-}*/
+
 .padding-left-zero {
     padding-left: 0
 }
@@ -549,7 +500,6 @@ table > tbody > tr > td,table > tbody > tr > td > div,table > tbody > tr > td > 
 .table > thead > tr:first-child > th {overflow: hidden;text-overflow: ellipsis;vertical-align: middle;white-space: nowrap;border-left:0}/*for table headers with large text*/
 #docArchExport .table > thead > tr:first-child > th {text-overflow: unset;}
 .table > thead > tr:first-child > th > span {white-space:nowrap;}/*for table headers with large text*/
-/*table > tbody > tr > td,table > tbody > tr > td > div,table > tbody > tr > td > span,table > tbody > tr > td > a, .table > thead > tr:first-child > th {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}*/
 #sortDataTable-tbody tr td .tableDropdown,#sortDataTable-tbody tr td:nth-child(3){overflow:visible}
 table a:not(.btn),.table a:not(.btn){text-decoration:none}
 #systemManagement .btn{padding-right:0}
@@ -592,7 +542,6 @@ label{margin-bottom:4px}
 
 #login-page-form .form-control:focus,.search-group .form-control:focus{border-color:#195c90;outline:0;-webkit-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);-moz-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);border-bottom:1px solid #195c90}
 .filter-search:focus{border-color:#195c90;outline:0;-webkit-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);-moz-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);border-bottom:1px solid #195c90; border-top:1px solid #195c90}
-/*#login-page-form .form-control:focus,.filter-search:focus,.search-group .form-control:focus{border-color:#195c90;outline:0;-webkit-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);-moz-box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);box-shadow:inset 0 0 5px 0 rgba(25,92,144,0.6);border-bottom:1px solid #195c90}*/
 
 .login-btn .btn/*,.btn-success*/{background:#1f73ad;color:#fff;border-color:#1f73ad;padding:8px 8px 9px}
 .login-btn .btn:hover,.login-btn .btn:active,.login-btn .btn:visited,.login-btn .btn:focus/*,.btn-success:active:hover,.btn-success.active:hover,.open>.dropdown-toggle.btn-success:hover,.btn-success:active:focus,.btn-success.active:focus,.open>.dropdown-toggle.btn-success:focus,.btn-success:active.focus,.btn-success.active.focus,.open>.dropdown-toggle.btn-success.focus*/{background:#2ca3f6;border-color:#2ca3f6}
@@ -625,8 +574,7 @@ label{margin-bottom:4px}
 .btn:active{-webkit-box-shadow:none;box-shadow:none}
 #data-twin-table #table-body .padding{padding-left:8px}
 .support-desk{margin-bottom:20px}
-/*html.ie #datagrid-page .datagrid-table-param table thead tr th{border-top:0;border-bottom:0;position:static}
-html.ie11 #datagrid-page .datagrid-table-param table thead tr th{position:static}*/
+
 html.ie .table thead,html.ie .table thead{height:31px}
 html.ie :last-of-type#dataTableTwin-tbody-tr-rightTable,html.ie :last-of-type#dataTableTwin-tbody-tr-leftTable{border-bottom-width:1px}
 table > tbody > tr > td#assignRolesAlignment2{overflow:visible}
@@ -1106,15 +1054,7 @@ html.gecko .support-table .popover.support-system {
 .summedRows{border-bottom: 1px solid #c8d7e1 !important;}
 
 /*Confidential Dashbaord FixedColumn Css*/
-/*#data-table-tbody-tr-td.classAbsolute, #data-table-thead-tr th.classAbsolute {position: absolute;right: 36px;background-color: #f9f9f9;z-index: 10;}
-#data-table-tbody-tr-td.widthclass, #data-table-thead-tr th.widthclass {width:240px;}
-#data-table-thead-tr th.fixed-column-color {background-color: #e9eff3;border-left: 1px solid #ddd;height:37px; border-bottom:0}
-#data-table-tbody-tr-td.fixed-column-color-body {background-color: #f9f9f9;border-bottom: 1px solid #ddd;border-left: 1px solid #ddd;border-right:0; height:37px}
 
-#data-table-tbody-tr-td.borderClassConfidential{
-    border-top:0;
-    
-}*/
 .save-container label {
     vertical-align: middle;
 }
@@ -1318,21 +1258,9 @@ a:focus, a:hover{outline:none;}
 #select-deletion #rightTable{position:relative;}
 #select-deletion #rightTable::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: 1px solid #c8d7e1;pointer-events:none;}
 #select-deletion #rightTable .table-bordered{border:0px;}
-/*#select-deletion #rightTable .table-bordered::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: thin solid #c8d7e1;pointer-events:none;}*/
-/*#export-tableSelection #leftTable{position:relative;}
-#export-tableSelection #leftTable::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: 1px solid #c8d7e1;pointer-events:none;}
-#export-tableSelection #leftTable .table-bordered{border:0px;}*/
-/*#export-tableSelection #leftTable .table-bordered::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: thin solid #c8d7e1;pointer-events:none;}*/
-/*#export-tableSelection #rightTable{position:relative; border:0px;}
-#export-tableSelection #rightTable::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: 1px solid #c8d7e1;pointer-events:none;}
-#export-tableSelection #rightTable .table-bordered{position:relative; border:0px;}
-#export-tableSelection #rightTable .table-bordered::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: thin solid #c8d7e1;pointer-events:none;}*/
-/*.modal-content {pointer-events: none;}*/
-/*.btn, button, input {pointer-events: all !important;}*/
-/*vb-input-dialog.ng-isolate-scope, vb-input-dialog-simple.ng-isolate-scope {pointer-events: none;}*/
+
 .unClickableCheckbox{ pointer-events: none; cursor: wait; }
-/*.btn, button, input {pointer-events: all !important;}*/
-/*vb-input-dialog.ng-isolate-scope, vb-input-dialog-simple.ng-isolate-scope {pointer-events: none;}*/
+
 #systemManagementTreeDiv #tree ul.dynatree-container li{padding:0px !important;}
 #treeview1 {position:relative; border:0px;}
 #treeview1::after {content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: 1px solid #c8d7e1;pointer-events:none;}
@@ -1340,9 +1268,7 @@ a:focus, a:hover{outline:none;}
     pointer-events: none !important;
 }
 .sorting-loader-selenium {position: relative;top: 4px;}
-/*.modal-content {
-    pointer-events: none !important;
-}*/
+
 /* VB16-24680 changes */
 #treeview1 #tree ul.dynatree-container li#bold {
     padding: 0px;
@@ -1359,21 +1285,7 @@ a:focus, a:hover{outline:none;}
 #rightTableWrapper, #leftTableWrapper{position: relative;}
 #leftTable, #rightTable, .rightTable, .leftTable, #dynamicrightTable, #dynamicleftTable{min-height: 428px; overflow:hidden; overflow-x:auto;}
 
-/*Mozilla*/
-/*@-moz-document url-prefix() {
-    #leftTable, #rightTable, .rightTable, .leftTable, #dynamicleftTable, #dynamicrightTable{height: 434px !important;}
-}*/
-/* IE */
-/*@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    #leftTable, #rightTable, .rightTable, .leftTable, #dynamicleftTable, #dynamicrightTable{min-height: 435px;}
-}*/
-/* IE Edge 12+ CSS styles go here */
-/*@supports (-ms-ime-align: auto) {
-    #leftTable, #rightTable, .rightTable, .leftTable, #dynamicleftTable, #dynamicrightTable{min-height: 435px;}
-}*/
-/*Twin Table border fixes ends*/
 
-/*DataTable border fixes starts*/
 .show-memeber-table::after, #databaseDetails .detailTable::after, .dashboardTable::after, .data-retrieval-protocol .table-container::after, #viewbox-documentation .table-container::after, #uploadWizard .uploadWizardTableWrapper::after, .column-Order-table table::after, #data-encryption-list.table::after, #loadSelection .table::after, #updateJobPageTable table::after, .datagrid-loader table::after,#dynamicTreeDiv::after, #TablePreview .modalBodyWrapper::after, #systemManagementTreeDiv::after, .clickAndClickSummary::after, .selectionCriteria ::after, .NoEncryptionMsg::after, .set-optional-order-data-table table::after, .new-custom-view::after, .manage-custom-view::after{content: '';position: absolute;top: 0;right: 0;bottom: 0;left: 0;border: 1px solid #c8d7e1;pointer-events:none;}
 
 .show-memeber-table .table-bordered, #databaseDetails .detailTable .table-bordered, .dashboardTable .table-bordered, #viewbox-documentation .table-container .table-bordered, #uploadWizard .uploadWizardTableWrapper .table-bordered, .column-Order-table .table-bordered, #data-encryption-list.table-bordered, #loadSelection .table-bordered, #updateJobPageTable .table-bordered, #dynamicTreeDiv .table-bordered, #export-tableSelection #leftTable .table-bordered, #export-tableSelection #rightTable .table-bordered, .clickAndClickSummary .table-bordered, .selectionCriteria .table-bordered, .set-optional-order-data-table table, .new-custom-view table, .manage-custom-view table{ border: 0 }
@@ -1437,15 +1349,7 @@ a:focus, a:hover{outline:none;}
     border-left: 0;
 }
 
-/* VB16-26018 changes for subtotal sorting and while applying the freeze (border) starts */
-/*#document-datagrid-selenium {
-    margin-left: 1px;
-    margin-top: 1px;
-}*/
-/*.sorting-subtotal #leftTable .table-bordered {
-    border: 1px solid #dddddd;
-}*/
-/* VB16-26018 changes for subtotal sorting and while applying the freeze (border) ends */
+
 
 .dashboardHeader button{padding-top:8.5px; padding-bottom:8.5px}
 .dashboardHeader .h4 {margin-top: 10px;margin-bottom: 10px;}
@@ -1468,16 +1372,7 @@ a:focus, a:hover{outline:none;}
     transform: translate(-50%, -50%);
 }
 html.gecko #logging-filter{margin-bottom:20px;}
-/*#datagrid-table .table-datagrid-page table tbody tr td:last-child, #datagrid-table .table-datagrid-page table thead tr td:last-child{border-right: 0}*/
-/* VB16-26018 changes for subtotal sorting and while applying the freeze (border) ends */
-/*VB16-26116 column order table css starts */
-/*#column-order .column-Order-table #TablePreview .table {
-    min-height: 249px !important;
-}
 
-    #column-order .column-Order-table #TablePreview .table td {
-        height: 43px !important;
-    }*/
 /*VB16-26116 column order table css ends */
 /*#datagrid-table .table-datagrid-page table tbody tr td:last-child, #datagrid-table .table-datagrid-page table thead tr td:last-child{border-right: 0}*/
 .column-Order-table table tbody .freezeColumnOrder{padding:3px 0}
@@ -1535,9 +1430,7 @@ html.gecko #logging-filter{margin-bottom:20px;}
     position: relative;
 }
 
-/*#manage-records-list{
-    min-height: 435px;
-}*/
+
 
 #update-dropdown{
     height: 43px;
@@ -1719,6 +1612,3 @@ input[type="search"]:focus, .dropDownListComponentPage button:focus, .data-grid-
 }
 /*Ended for VB16-28287*/
 
-/*.data-grid-data-td span {
-    white-space: inherit !important;
-}*/

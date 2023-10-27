@@ -80,13 +80,7 @@ export class ConfirmDialogueViewComponent implements OnInit {
       }
     }, 20000);
 
-  //   this.http.interceptors.push({
-  //     intercept: (req, next) => {
-  //       const api = { request: req, completed: false };
-  //       arrayApi.push(api);
-  //       return next.handle(req).pipe(finalize(() => api.completed = true));
-  //     }
-  //   });
+  
    }
 
   pad(val: number): string {

@@ -10,6 +10,8 @@ import { PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from './services/login.service';
 import { AccountService } from './services/account/account.service';
+import { JasonLoginComponent } from './Components/login/jasonLogin/jason-login/jason-login.component';
+
 
 
 
@@ -17,6 +19,8 @@ import { AccountService } from './services/account/account.service';
   declarations: [
     AppComponent,
     LoginComponent,
+    JasonLoginComponent,
+    
    
   ],
   imports: [
@@ -25,6 +29,8 @@ import { AccountService } from './services/account/account.service';
     SharedModule,
     HttpClientModule,
     FormsModule,
+    
+    
     
     
   ],

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-// import { AccountService } from 'path-to-account-service'; // Replace with actual path
 
 @Component({
   selector: 'app-passaword-text-box',
@@ -66,17 +65,13 @@ export class PasswordTextboxComponent implements OnInit
   pass: any;
 
   constructor(
-    // private accountService: AccountService,
-    // private languageService: LanguageService,
+   
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.passwordCheck =false;
-    // this.activateTooltip();
-    // this.oktaLogin = window.jsonLogindisable;
-    // this.languageService.init();
-    // this.getPasswordValidationSetting();
+    
     this.strength = false;
   this.number = false;
   this.uppercase = false;
@@ -96,8 +91,7 @@ export class PasswordTextboxComponent implements OnInit
 
   ngDoCheck() {
     if (this.inovkeTooltip) {
-    //   document.querySelector('.newpassword').focus();
-      // this.activateTooltip(); // Make sure activateTooltip method is defined in your component
+    
       this.inovkeTooltip = false;
     }
   }
@@ -133,21 +127,7 @@ export class PasswordTextboxComponent implements OnInit
     }
   }
 
-  // getPasswordValidationSetting(): void {
-  //   this.accountService.getPasswordValidationSettings().then((data: any) => {
-  //     const settings = data;
-  //     this.passwordSettings.IsNumber = data.PasswordRequireDigits;
-  //     this.passwordSettings.IsLowercase = data.PasswordRequireLowercase;
-  //     this.passwordSettings.IsUppercase = data.PasswordRequireUppercase;
-  //     this.passwordSettings.IsSpecialCharacter = data.PasswordRequireSpecials;
-  //     this.passwordSettings.IsRequiredLength = data.PasswordRequiredLength !== null && data.PasswordRequiredLength !== '' && !angular.isUndefined(data.PasswordRequiredLength) ? true : false;
-  //     this.character = data.PasswordRequiredLength !== null && data.PasswordRequiredLength !== '' && !angular.isUndefined(data.PasswordRequiredLength) ? data.PasswordRequiredLength : 8;
-  //     this.passwordSettings.IsAllowTrivialPassword = !data.AllowTrivialPassword;
-  //     this.passwordSettings.IsAllowDictionaryCharactersPassword = data.AllowDictionaryCharactersPassword;
-  //     this.calculateFullStrength(this.passwordSettings);
-  //     this.allowDictionaryCharacters = data.AllowDictionaryCharactersPassword;
-  //   });
-  // }
+  
 
  
 

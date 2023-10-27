@@ -18,7 +18,7 @@
     
 
     <input [type]=" passwordCheck ? 'text' : 'password' " name="pass" id="pass" [(ngModel)]="pass"
-        class="form-control newpassword" [(ngModel)]="bind" [placeholder]="placeholder " data-toggle="tooltip"
+        class="form-control newpassword" [(ngModel)]="bind" placeholder=" EnterPassword" data-toggle="tooltip"
         (ngModelChange)="countStrength(pass)" [tabindex]="tabIndex" no-spaces data-placement="right"
         data-container="body" (cut)="$event.preventDefault()" (copy)="$event.preventDefault()"
         (paste)="$event.preventDefault()" [ngClass]="{'input-data-error': validate}" popover-trigger="'focus'"
