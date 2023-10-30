@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PassawordTextBoxComponent } from './passaword-text-box.component';
+import { PassawordTextBoxComponent } from './password-text-box.component';
 
 describe('PassawordTextBoxComponent', () => {
   let component: PassawordTextBoxComponent;

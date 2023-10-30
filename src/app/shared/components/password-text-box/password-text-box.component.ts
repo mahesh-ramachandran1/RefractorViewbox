@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-passaword-text-box',
-  templateUrl: './passaword-text-box.component.html',
-  styleUrls: ['./passaword-text-box.component.css']
+  selector: 'app-password-text-box',
+  templateUrl: './password-text-box.component.html',
+  styleUrls: ['./password-text-box.component.css']
 })
 export class PasswordTextboxComponent implements OnInit 
 {

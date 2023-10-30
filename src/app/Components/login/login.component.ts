@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { PasswordTextboxComponent } from 'src/app/shared/components/passaword-text-box/passaword-text-box.component';
+import { PasswordTextboxComponent } from 'src/app/shared/components/password-text-box/password-text-box.component';
 import { ConfirmDialogueViewComponent } from 'src/app/shared/components/confirm-dialogue-view/confirm-dialogue-view.component';
 import { LoginService } from 'src/app/services/login.service';
 import { AccountService } from 'src/app/services/account/account.service';

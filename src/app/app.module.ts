@@ -10,7 +10,8 @@ import { PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from './services/login.service';
 import { AccountService } from './services/account/account.service';
-import { JasonLoginComponent } from './Components/login/jasonLogin/jason-login/jason-login.component';
+import { JasonLoginComponent } from './Components/login/jsonLogin/json-login/json-login.component';
+import { JasonLogoutComponent } from './Components/login/json-logout/json-logout.component';
 
 
 
@@ -20,6 +21,7 @@ import { JasonLoginComponent } from './Components/login/jasonLogin/jason-login/j
     AppComponent,
     LoginComponent,
     JasonLoginComponent,
+    JasonLogoutComponent,
     
    
   ],

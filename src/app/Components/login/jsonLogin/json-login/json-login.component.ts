@@ -16,9 +16,9 @@ declare global {
   }
 }
 @Component({
-  selector: 'app-jason-login',
-  templateUrl: './jason-login.component.html',
-  styleUrls: ['./jason-login.component.css']
+  selector: 'app-json-login',
+  templateUrl: './json-login.component.html',
+  styleUrls: ['./json-login.component.css']
 })
 export class JasonLoginComponent implements OnInit {
   projectName!: string;
